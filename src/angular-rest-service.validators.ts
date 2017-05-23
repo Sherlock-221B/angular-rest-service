@@ -1,6 +1,6 @@
 
 
-export class Angular2RestServiceValidators {
+export class AngularRestServiceValidators {
 
 
     isValidURL(url: string) {

@@ -2,11 +2,11 @@ import { Observable } from 'RxJS/Observable';
 import { Injectable } from '@angular/core';
 import { Headers } from '@angular/http';
 
-import { Angular2RestServiceHttp } from './angular2-rest-service.http';
-import { Angular2RestServiceSettings } from './angular2-rest-service.settings';
+import { AngularRestServiceHttp } from './angular-rest-service.http';
+import { AngularRestServiceSettings } from './angular-rest-service.settings';
 
 @Injectable()
-export class Angular2RestService {
+export class AngularRestService {
 
     private url_tokens: string[] = [];
     private params : string[] = [];
@@ -15,8 +15,8 @@ export class Angular2RestService {
     private customBaseUrl : string;
     headers : Headers;
 
-    constructor(private restHttp: Angular2RestServiceHttp,
-        private settings: Angular2RestServiceSettings
+    constructor(private restHttp: AngularRestServiceHttp,
+        private settings: AngularRestServiceSettings
     ) { 
     }
 
@@ -54,12 +54,12 @@ export class Angular2RestService {
         
         if (this.copy != undefined && this.copy == "y") {
            //console.log("List() done! no make copy");
-            return <Angular2RestService> this;
+            return <AngularRestService> this;
         } else {
             let newCopy = this.makeCopy(this);
             this.cleanup();
             //console.log("List() done! make copy");
-            return <Angular2RestService> newCopy;
+            return <AngularRestService> newCopy;
         }
         
     }
@@ -78,7 +78,7 @@ export class Angular2RestService {
                 this.url_tokens.push(params.toString());
             }
         }
-        return <Angular2RestService> this;
+        return <AngularRestService> this;
     }
 
 
@@ -117,21 +117,21 @@ export class Angular2RestService {
             }
         }
         if (this.copy != undefined && this.copy == "y") {
-            return <Angular2RestService> this;
+            return <AngularRestService> this;
         } else {
             let newCopy = this.makeCopy(this);
             newCopy.copy = "y";
             newCopy.customBaseUrl = url;
             this.cleanup();
-            return <Angular2RestService> newCopy;
+            return <AngularRestService> newCopy;
         }
     }
 
 
     //4
-    makeCopy(oldCopy: Angular2RestService) {
-        if (oldCopy == undefined) return <Angular2RestService> oldCopy;
-        let newCopy : Angular2RestService= Object.assign({}, oldCopy);
+    makeCopy(oldCopy: AngularRestService) {
+        if (oldCopy == undefined) return <AngularRestService> oldCopy;
+        let newCopy : AngularRestService= Object.assign({}, oldCopy);
         //newCopy.one = oldCopy.one; //1
         newCopy.list = oldCopy.list; //2
         newCopy.filterById = oldCopy.filterById; //3
@@ -148,7 +148,7 @@ export class Angular2RestService {
         newCopy.listWithBaseUrl = oldCopy.listWithBaseUrl; //15
         newCopy.addHttpHeader = oldCopy.addHttpHeader; //16
         newCopy.removeHttpHeader = oldCopy.removeHttpHeader; //17
-        return <Angular2RestService> newCopy;
+        return <AngularRestService> newCopy;
     }
 
     //5

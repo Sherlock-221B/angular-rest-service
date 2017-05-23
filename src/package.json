@@ -1,9 +1,9 @@
 {
-  "name": "angular2-rest-service",
-  "version": "0.1.2",
+  "name": "angular-rest-service",
+  "version": "0.1.5",
   "repository": {
     "type": "git",
-    "url": "https://github.com/username/repo"
+    "url": "https://github.com/Sherlock-221B/angular2-rest-service"
   },
   "author": {
     "name": "Vijay Jadhav",
@@ -14,7 +14,7 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/username/repo/issues"
+    "url": "https://github.com/Sherlock-221B/angular2-rest-service/issues"
   },
   "module": "angular2-rest-service.js",
   "typings": "angular2-rest-service.d.ts",

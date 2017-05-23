@@ -1,20 +1,20 @@
 import {Injectable} from '@angular/core';
 import {Http , Headers , RequestOptions} from '@angular/http';
 
-import { Angular2RestServiceValidators } from './angular2-rest-service.validators';
+import { AngularRestServiceValidators } from './angular-rest-service.validators';
 
 @Injectable()
-export class Angular2RestServiceSettings {
+export class AngularRestServiceSettings {
 
     private baseUrl : string;
     headers: Headers;
     options: RequestOptions;
-    private validators : Angular2RestServiceValidators;
+    private validators : AngularRestServiceValidators;
     public params : string[] = [];
 
     constructor(private http : Http){
         this.headers = new Headers();
-        this.validators = new Angular2RestServiceValidators();
+        this.validators = new AngularRestServiceValidators();
     }
 
     setBaseUrl(base : string) {
@@ -48,7 +48,7 @@ export class Angular2RestServiceSettings {
     }
 
     
-    setParameter(name : string, value : any){
+    setGlobalParameter(name : string, value : any){
         if(name != undefined && value != undefined){
             if(Object.prototype.toString.call(value) === '[object Array]'){
                 if(value.length > 0){

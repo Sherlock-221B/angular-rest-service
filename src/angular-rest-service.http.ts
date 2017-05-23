@@ -1,7 +1,7 @@
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { Injectable, Inject } from '@angular/core';
 
-import { Angular2RestServiceSettings } from './angular2-rest-service.settings';
+import { AngularRestServiceSettings } from './angular-rest-service.settings';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -9,12 +9,12 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class Angular2RestServiceHttp {
+export class AngularRestServiceHttp {
 
     headers: Headers;
     options: RequestOptions;
 
-    constructor(private http: Http, private settings: Angular2RestServiceSettings) { }
+    constructor(private http: Http, private settings: AngularRestServiceSettings) { }
 
     request(method: string, url: string, _headers: Headers, data?: any): any {
 
