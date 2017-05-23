@@ -1,11 +1,11 @@
-# angular2-rest-service
+# angular-rest-service
 
 ## Installation
 
 To install this library, run:
 
 ```bash
-$ npm install angular2-rest-service --save
+$ npm install angular-rest-service --save
 ```
 
 ## How to use
@@ -20,8 +20,8 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 
 // Import
-import { Angular2RestServiceModule, Angular2RestService,
-Angular2RestServiceSettings} from 'angular2-rest-service';
+import { AngularRestServiceModule, AngularRestService,
+AngularRestServiceSettings} from 'angular-rest-service';
 
 
 @NgModule({
@@ -31,10 +31,10 @@ Angular2RestServiceSettings} from 'angular2-rest-service';
   imports: [
     BrowserModule,
     //add to imports array
-    Angular2RestServiceModule
+    AngularRestServiceModule
   ],
   //add to providers array
-  providers: [Angular2RestService, Angular2RestServiceSettings],
+  providers: [AngularRestService, AngularRestServiceSettings],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
@@ -44,7 +44,7 @@ In the main component, set the base URL:
 
 ```typescript
 import { Component, OnInit } from ’@angular/core’; 
-import { Angular2RestServiceSettings } from ’angular2-rest-service’;
+import { AngularRestServiceSettings } from ’angular-rest-service’;
 @Component({ 
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -53,7 +53,7 @@ import { Angular2RestServiceSettings } from ’angular2-rest-service’;
   
   export class AppComponent implements OnInit { 
     
-    constructor( private settings: Angular2RestServiceSettings) { } 
+    constructor( private settings: AngularRestServiceSettings) { } 
     
     ngOnInit() { 
       this.settings.setBaseUrl("http://base/url/api");
@@ -67,7 +67,7 @@ From any component, do this:
 
 ```typescript
 import { Component, OnInit } from ’@angular/core’; 
-import { Angular2RestService } from ’angular2-rest-service’;
+import { AngularRestService } from ’angular-rest-service’;
 @Component({ 
   selector: 'my-app',
   templateUrl: './my-app.component.html',
@@ -76,7 +76,7 @@ import { Angular2RestService } from ’angular2-rest-service’;
   
 export class MyAppComponent implements OnInit { 
     userList ;
-    constructor(private rest : Angular2RestService) { } 
+    constructor(private rest : AngularRestService) { } 
     
     ngOnInit() { 
 
