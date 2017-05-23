@@ -10,6 +10,7 @@ export class Angular2RestServiceSettings {
     headers: Headers;
     options: RequestOptions;
     private validators : Angular2RestServiceValidators;
+    public params : string[] = [];
 
     constructor(private http : Http){
         this.headers = new Headers();
@@ -42,6 +43,24 @@ export class Angular2RestServiceSettings {
         if(name != undefined){
             if(this.headers.has(name)){
                 this.headers.delete(name);
+            }
+        }
+    }
+
+    
+    setParameter(name : string, value : any){
+        if(name != undefined && value != undefined){
+            if(Object.prototype.toString.call(value) === '[object Array]'){
+                if(value.length > 0){
+                    let result : string = value[0].toString();
+                    for(let i=1; i< value.length ; i++){
+                        result += "," + value[i].toString();
+                    }
+                    this.params[name] = result;
+                }
+            }else{
+                
+                this.params[name] = value.toString();
             }
         }
     }

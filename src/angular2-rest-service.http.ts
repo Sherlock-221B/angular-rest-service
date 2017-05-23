@@ -13,31 +13,42 @@ export class Angular2RestServiceHttp {
 
     headers: Headers;
     options: RequestOptions;
-    
-    constructor(private http: Http, private settings : Angular2RestServiceSettings) {  }
 
-    request(method: string, url: string, data ?: any): any {
+    constructor(private http: Http, private settings: Angular2RestServiceSettings) { }
 
-        if (method == "delete") {
+    request(method: string, url: string, _headers: Headers, data?: any): any {
+
+        this.headers = _headers;
+        this.parseHeaders();
+
+        if (method == "DELETE") {
+
             return this.httpDelete(url);
-        } else if (method == "put") {
+
+        } else if (method == "PUT") {
             //update a record on server
             //input : Json object
+
             return this.httpPut(url, JSON.stringify(data));
-        } else if (method == "post") {
+
+        } else if (method == "POST") {
+
             return this.httpPost(url, JSON.stringify(data));
-        } else if (method == "patch") {
+
+        } else if (method == "PATCH") {
+
             return this.httpPatch(url, JSON.stringify(data));
+
         } else {
             return this.httpGet(url);
+
         }
 
     }
 
     httpGet(url: string): Observable<any> {
 
-        this.headers = this.settings.headers;
-        this.headers.set('Content-Type' , 'application/json');
+        this.headers.set('Content-Type', 'application/json');
         this.options = new RequestOptions({ headers: this.headers });
 
         return this.http.get(url, this.options)
@@ -54,8 +65,7 @@ export class Angular2RestServiceHttp {
 
     httpDelete(url: string): Observable<any> {
 
-        this.headers = this.settings.headers;
-        this.headers.set('Content-Type' , 'application/json');
+        this.headers.set('Content-Type', 'application/json');
         this.options = new RequestOptions({ headers: this.headers });
 
         return this.http.delete(url, this.options)
@@ -70,10 +80,9 @@ export class Angular2RestServiceHttp {
             });
     }
 
-    httpPut(url: string, data : string): Observable<any> {
+    httpPut(url: string, data: string): Observable<any> {
 
-        this.headers = this.settings.headers;
-        this.headers.set('Content-Type' , 'application/json');
+        this.headers.set('Content-Type', 'application/json');
         this.options = new RequestOptions({ headers: this.headers });
 
         return this.http.put(url, data, this.options)
@@ -88,10 +97,9 @@ export class Angular2RestServiceHttp {
             });
     }
 
-     httpPost(url: string, data : string): Observable<any> {
+    httpPost(url: string, data: string): Observable<any> {
 
-        this.headers = this.settings.headers;
-        this.headers.set('Content-Type' , 'application/json');
+        this.headers.set('Content-Type', 'application/json');
         this.options = new RequestOptions({ headers: this.headers });
 
         return this.http.post(url, data, this.options)
@@ -106,12 +114,12 @@ export class Angular2RestServiceHttp {
             });
     }
 
-    httpPatch(url: string, data : string): Observable<any> {
+    httpPatch(url: string, data: string): Observable<any> {
 
         this.headers = new Headers({ 'Content-Type': 'application/json' });
         this.options = new RequestOptions({ headers: this.headers });
 
-        return this.http.patch(url, data,this.options)
+        return this.http.patch(url, data, this.options)
             .map((response: any) => {
                 return response;
             })
@@ -121,6 +129,19 @@ export class Angular2RestServiceHttp {
                 console.error(errMsg);
                 return Observable.throw(errMsg);
             });
+    }
+
+    parseHeaders() {
+        let headerKeys: string[] = this.settings.headers.keys();
+        if(this.headers == undefined){
+            this.headers = new Headers();
+        }
+        for (let i = 0; i < headerKeys.length; i++) {
+            if (!this.headers.has(headerKeys[i])) {
+                this.headers.set(headerKeys[i], this.settings.headers.get(headerKeys[i]));
+            }
+        }
+
     }
 
 }
