@@ -8,15 +8,10 @@ To install this library, run:
 $ npm install angular2-rest-service --save
 ```
 
-## Consuming your library
+## How to use
 
-Once you have published your library to npm, you can import your library in any Angular application by running:
 
-```bash
-$ npm install angular2-rest-service
-```
-
-and then from your Angular `AppModule`:
+Make these changes in your root module `AppModule`:
 
 ```typescript
 import { BrowserModule } from '@angular/platform-browser';
@@ -24,8 +19,10 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 
-// Import your library
-import { SampleModule } from 'angular2-rest-service';
+// Import
+import { Angular2RestServiceModule, Angular2RestService,
+Angular2RestServiceSettings} from 'angular2-rest-service';
+
 
 @NgModule({
   declarations: [
@@ -33,39 +30,70 @@ import { SampleModule } from 'angular2-rest-service';
   ],
   imports: [
     BrowserModule,
-
-    // Specify your library as an import
-    LibraryModule
+    //add to imports array
+    Angular2RestServiceModule
   ],
-  providers: [],
+  //add to providers array
+  providers: [Angular2RestService, Angular2RestServiceSettings],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
 ```
 
-Once your library is imported, you can use its components, directives and pipes in your Angular application:
+In the main component, set the base URL:
 
-```xml
-<!-- You can now use your library component in app.component.html -->
-<h1>
-  {{title}}
-</h1>
-<sampleComponent></sampleComponent>
+```typescript
+import { Component, OnInit } from ’@angular/core’; 
+import { Angular2RestServiceSettings } from ’angular2-rest-service’;
+@Component({ 
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+  })
+  
+  export class AppComponent implements OnInit { 
+    
+    constructor( private settings: Angular2RestServiceSettings) { } 
+    
+    ngOnInit() { 
+      this.settings.setBaseUrl("http://base/url/api");
+    }
+}
+
 ```
 
-## Development
+Example :
+From any component, do this:
 
-To generate all `*.js`, `*.d.ts` and `*.metadata.json` files:
+```typescript
+import { Component, OnInit } from ’@angular/core’; 
+import { Angular2RestService } from ’angular2-rest-service’;
+@Component({ 
+  selector: 'my-app',
+  templateUrl: './my-app.component.html',
+  styleUrls: ['./my-app.component.css']
+  })
+  
+export class MyAppComponent implements OnInit { 
+    userList ;
+    constructor(private rest : Angular2RestService) { } 
+    
+    ngOnInit() { 
 
-```bash
-$ npm run build
+      //makes a GET request to http://base/url/api/users/
+      this.rest.list("users").doGet().subscribe(
+        result =>{
+          this.userList = result.json();
+          //do other stuff
+        }
+      );
+    }
+}
+
 ```
 
-To lint all `*.ts` files:
 
-```bash
-$ npm run lint
-```
+
 
 ## License
 
